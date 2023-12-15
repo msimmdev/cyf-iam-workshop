@@ -1,11 +1,14 @@
 import { Alert, AlertIcon, Image, Spinner, Stack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useAuth } from "oidc-react";
 import Cat from "./Cat";
 
 export default ({ subscription }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cats, setCats] = useState([]);
+
+  const auth = useAuth();
 
   useEffect(() => {
     async function getCats() {
@@ -30,6 +33,31 @@ export default ({ subscription }) => {
     }
     getCats();
   }, []);
+
+  if (subscription === "premium" || subscription === "super-premium") {
+    if (!auth || !auth.userData) {
+      return (
+        <Alert status="error">
+          <AlertIcon />
+          Please login to view these cats
+        </Alert>
+      );
+    }
+  }
+
+  if (subscription === "super-premium") {
+    if (
+      !auth.userData.profile.roles ||
+      !auth.userData.profile.roles.includes("CatLover")
+    ) {
+      return (
+        <Alert status="error">
+          <AlertIcon />
+          You must be a cat lover to see these cats
+        </Alert>
+      );
+    }
+  }
 
   if (error) {
     return (
