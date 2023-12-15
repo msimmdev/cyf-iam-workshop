@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { Flex, Center, Text, Link, Stack, Box } from "@chakra-ui/react";
+import { Flex, Center, Button, Link, Stack, Box } from "@chakra-ui/react";
 import CatList from "./CatList";
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
           <Link
             onClick={() => setSelectedCats("free")}
             _hover={{ background: "#cccccc" }}
+            marginTop={5}
           >
             <Center>Free Cats</Center>
           </Link>
@@ -28,6 +29,9 @@ function App() {
           >
             <Center>Super-Premium Cats</Center>
           </Link>
+          <Button bg="green" margin={10}>
+            Log In
+          </Button>
         </Stack>
       </Box>
       <Center w="80%">
