@@ -1,14 +1,23 @@
-var express = require("express");
-var cors = require("cors");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const logger = require("morgan");
+const oidcVerifyToken = require("./middleware/oidc-verify-token");
 
-var catRouter = require("./routes/cats");
+const catRouter = require("./routes/cats");
 
-var app = express();
+const app = express();
 
 app.use(cors());
+
+app.use(
+  oidcVerifyToken({
+    authority:
+      "https://login.microsoftonline.com/38fe53c5-4996-4c46-8a0d-b2ef2eb9fdb7/v2.0",
+    validIss: "https://sts.windows.net/38fe53c5-4996-4c46-8a0d-b2ef2eb9fdb7/",
+    validAud: "api://95bcf529-1242-4ed2-874f-867e9f676370",
+  })
+);
 
 app.use(logger("dev"));
 app.use(express.json());

@@ -17,6 +17,9 @@ function App() {
     clientId: "95bcf529-1242-4ed2-874f-867e9f676370",
     redirectUri: "http://localhost:5173",
     autoSignIn: false,
+    loadUserInfo: false,
+    scope:
+      "api://95bcf529-1242-4ed2-874f-867e9f676370/Cats.Read openid profile",
   };
 
   return (

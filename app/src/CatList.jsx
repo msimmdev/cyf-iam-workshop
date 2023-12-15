@@ -15,8 +15,15 @@ export default ({ subscription }) => {
       try {
         setLoading(true);
         setError(false);
+
+        let headers = {};
+        if (auth && auth.userData && auth.userData.access_token) {
+          headers = { Authorization: "Bearer " + auth.userData.access_token };
+        }
+
         const response = await fetch(
-          "http://localhost:3000/cats/" + subscription
+          "http://localhost:3000/cats/" + subscription,
+          { headers: headers }
         );
         if (!response.ok) {
           setError(true);

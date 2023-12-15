@@ -12,6 +12,9 @@ router.get("/free", function (req, res, next) {
 });
 
 router.get("/premium", function (req, res, next) {
+  if (!req.authenticated) {
+    return res.sendStatus(403);
+  }
   const catList = getCats();
 
   const premiumCats = catList.filter((cat) => cat.subscription === "premium");
@@ -20,6 +23,14 @@ router.get("/premium", function (req, res, next) {
 });
 
 router.get("/super-premium", function (req, res, next) {
+  if (!req.authenticated) {
+    return res.sendStatus(403);
+  }
+
+  if (!req.userToken.roles || !req.userToken.roles.includes("CatLover")) {
+    return res.sendStatus(403);
+  }
+
   const catList = getCats();
 
   const superPremiumCats = catList.filter(
