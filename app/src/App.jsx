@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./App.css";
-import { Flex, Center, Button, Link, Stack, Box } from "@chakra-ui/react";
+import { Flex, Center, Link, Stack, Box } from "@chakra-ui/react";
 import CatList from "./CatList";
+import LoginButton from "./LoginButton";
 
 function App() {
   const [selectedCats, setSelectedCats] = useState("free");
@@ -29,9 +30,7 @@ function App() {
           >
             <Center>Super-Premium Cats</Center>
           </Link>
-          <Button bg="green" margin={10}>
-            Log In
-          </Button>
+          <LoginButton />
         </Stack>
       </Box>
       <Center w="80%">
