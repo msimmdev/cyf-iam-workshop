@@ -1,5 +1,16 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Stack, Image, Text, Center } from "@chakra-ui/react";
 
 export default ({ cat }) => {
-  return <Image src={cat.img} boxSize="1080px" fit="contain" />;
+  return (
+    <Stack marginBottom={10}>
+      <Center>
+        <Image src={cat.img} maxH="1080px" maxW="80%" fit="contain" />
+      </Center>
+      <Center>
+        <Text>
+          {cat.name} by {cat.credit}
+        </Text>
+      </Center>
+    </Stack>
+  );
 };
